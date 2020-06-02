@@ -17,7 +17,7 @@ public class EmailFinderTest {
     @DisplayName("Testing EmailFinder class with no URL")
     void NoURLTest(){
         EmailFinder testURL = new EmailFinder();
-        String[] Args = {};
+        String[] Args = {"http://cdm.depaul.edu/virtual-campus-tour/Pages/default.aspx"};
         testURL.run(Args);
 
         String path = "badLinks.txt";
@@ -25,7 +25,7 @@ public class EmailFinderTest {
         try {
             txtLines = Files.lines(Paths.get(path));
             String res = txtLines.collect(Collectors.joining(System.lineSeparator()));
-            assertEquals(res, "");
+            assertEquals(res, "http://cdm.depaul.edu/virtual-campus-tour/Pages/default.aspx");
         } catch (IOException e) {
             e.printStackTrace();
         }
