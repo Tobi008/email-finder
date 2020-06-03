@@ -14,10 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmailFinderTest {
     @Test
+    @DisplayName("Should run the provided URL")
+    void testRun() {
+        String[] url = {"https://cdm.depaul.edu"};
+        EmailFinder.main(url);
+    }
+    @Test
     @DisplayName("Testing EmailFinder class with no URL")
     void NoURLTest(){
         EmailFinder testURL = new EmailFinder();
-        String[] Args = {"http://cdm.depaul.edu/virtual-campus-tour/Pages/default.aspx"};
+        String[] Args = {""};
         testURL.run(Args);
 
         String path = "badLinks.txt";
@@ -25,7 +31,7 @@ public class EmailFinderTest {
         try {
             txtLines = Files.lines(Paths.get(path));
             String res = txtLines.collect(Collectors.joining(System.lineSeparator()));
-            assertEquals(res, "http://cdm.depaul.edu/virtual-campus-tour/Pages/default.aspx");
+            assertEquals(res, "");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,7 +57,6 @@ public class EmailFinderTest {
 
 
     }
-
     @Test
     @DisplayName("Testing EmailFinder output with valid argument")
     void OutputTest(){

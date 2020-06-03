@@ -6,12 +6,14 @@ import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 class PageFetcherTest {
 
     @Test
     @DisplayName("Using Mock to test getString method using a static String")
-    void MockGetString() {
+    void getString_ValidURL() {
         PageFetcher newPage = mock(PageFetcher.class);
         String URL = "http://cdm.depaul.edu";
         when(newPage.getString(URL)).thenCallRealMethod();
@@ -46,5 +48,29 @@ class PageFetcherTest {
         newPage.get(URL);
         verify(newPage,times(1)).get(URL);
 
+    }
+    @Test
+    @DisplayName("Should return page content when URL is valid")
+    void getValidURL() {
+        PageFetcher fetch = new PageFetcher();
+        String newPage = fetch.getString("http://cdm.depaul.edu");
+        String phrase = "Computing";
+        assertTrue(newPage.contains(phrase));
+    }
+
+    @Test
+    @DisplayName("Expected Exception when page does not exist")
+    void testNoURL() {
+        PageFetcher newPage = new PageFetcher();
+        assertThrows(EmailFinderException.class, () -> newPage.get(""));
+    }
+
+    @Test
+    @DisplayName("Asserting that CDM page contains a link to Undergraduate Programs")
+    void testURLContain() {
+        PageFetcher fetch = new PageFetcher();
+        String newPage = fetch.getString("https://www.cdm.depaul.edu");
+        String phrase = "Bachelors-Programs.aspx";
+        assertTrue(newPage.contains(phrase));
     }
 }

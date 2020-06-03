@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.mock;
 public class ListWriterTests {
     @Test
     @DisplayName("Testing list creation")
-    void TestWriter() {
+    void TestListCreation() {
         String[] Arr = new String[]{"zero", "one", "two", "three", "four"};
         String TestString = Arr[0] + "\n" + Arr[1] + "\n" + Arr[2] + "\n" + Arr[3] + "\n" + Arr[4] + "\n";
         ArrayList<String> List = new ArrayList<String>();
@@ -52,6 +53,16 @@ public class ListWriterTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @Test
+    @DisplayName("should write Args to the output")
+    void SimpleListCreation() throws IOException {
+        String[] Args = {"x", "y", "z"};
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ListWriter writer = new ListWriter(output);
+        writer.writeList(Arrays.asList(Args));
+        assertEquals("x\ny\nz\n", output.toString());
     }
     }
 

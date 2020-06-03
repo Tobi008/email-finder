@@ -40,8 +40,8 @@ class StorageServiceTest {
     void storeList() {
         StorageService store = mock(StorageService.class);
         Collection<String> collect = new ArrayList<String>();
-        collect.add("ValidURL.txt");
-        store.addLocation(StorageService.StorageType.GOODLINKS,"ValidURL.txt");
+        collect.add("validurl.txt");
+        store.addLocation(StorageService.StorageType.GOODLINKS,"validurl.txt");
           doNothing().when(store).storeList(isA(StorageService.StorageType.class),isA(Collection.class));
           store.storeList(StorageService.StorageType.GOODLINKS,collect);
           verify(store,times(1)).storeList(StorageService.StorageType.GOODLINKS,collect);
